@@ -1,5 +1,5 @@
 import random
-from datetime import datetime # datetime module imports the datetime class for timestamping readings
+from datetime import datetime, timezone # datetime module imports the datetime class for timestamping readings and timezone for handling time zones
 from dataclasses import dataclass # dataclasses module is used to create data classes for structured data
 from abc import ABC, abstractmethod # abc module is used to create abstract base classes for sensors
 
@@ -40,7 +40,7 @@ class TemperatureSensor(Sensor):
             sensor=self.name,
             value=self.temperature,
             unit="°C",
-            timestamp = datetime.now()
+            timestamp = datetime.now(timezone.utc) 
         )
 class HumiditySensor(Sensor):
     
@@ -62,7 +62,7 @@ class HumiditySensor(Sensor):
             sensor= self.name, 
             value = self.humidity,
             unit = "%",
-            timestamp = datetime.now()
+            timestamp = datetime.now(timezone.utc)  # timezone.utc ensures that the timestamp is in Coordinated Universal Time (UTC) format, which is a standard time format used for consistency across different time zones.
         )
 
 class MotionSensor(Sensor):
@@ -80,7 +80,7 @@ class MotionSensor(Sensor):
             sensor=self.name,
             value=value,
             unit="motion",
-            timestamp=datetime.now()
+            timestamp=datetime.now(timezone.utc)
         )
 
 
